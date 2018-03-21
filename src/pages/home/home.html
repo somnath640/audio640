@@ -1,14 +1,73 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      AUDIO PLAYER
     </ion-title>
   </ion-navbar>
+  <!-- <progress-bar [progress]="currentTrack.progress"></progress-bar> -->
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content fullscreen>
+    <ion-list>
+        <audio-track #audio *ngFor="let track of myTracks"  [track]="track" (onFinish)="onTrackFinished($event)">
+          <ion-item>  
+            <ion-thumbnail item-left>
+              <img src="{{audio.art}}">
+              <audio-track-play dark [audioTrack]="audio"><ion-spinner></ion-spinner></audio-track-play>  
+            </ion-thumbnail>
+            <div item-content style="width:100%">
+              <p><strong>{{audio.title}}</strong> ⚬ <em>{{audio.artist}}</em></p>
+              <audio-track-progress-bar dark duration progress [audioTrack]="audio" [ngStyle]="{visibility: audio.completed > 0 ? 'visible' : 'hidden'}"></audio-track-progress-bar>
+            </div>
+          </ion-item>    
+        </audio-track>
+      </ion-list>
+
+    </ion-content>
+  <!-- <ion-card ion-fixed>
+
+      <ion-card-header>
+          {{currentTrack.artist}}
+      </ion-card-header>
+      <ion-card-content>
+          {{currentTrack.title}}
+      </ion-card-content>
+  </ion-card>
+
+  <ion-list no-lines>
+      <button detail-none ion-item *ngFor="let track of tracks; let i = index;" (click)="track.playing ? pauseTrack(track) : playTrack(track)" [ngClass]="{ 'alternate': i % 2, 'playing': track.playing }">
+          <ion-avatar item-left>
+              <img [src]="'https://api.adorable.io/avatars/75/' + track.artist">
+              <ion-spinner item-right *ngIf="track.playing" name="bubbles" item-left></ion-spinner>
+          </ion-avatar>
+          <h2>{{track.artist}}</h2>
+          <p>{{track.title}}</p>
+      </button>
+  </ion-list>
+
 </ion-content>
+
+<ion-footer>
+
+  <ion-grid>
+
+      <ion-row>
+
+          <ion-col width="33">
+              <button (click)="prevTrack()" color="light" clear ion-button icon-only><ion-icon name="skip-backward-outline"></ion-icon></button>
+          </ion-col>
+
+          <ion-col width="33">
+              <button *ngIf="!currentTrack.playing" (click)="playTrack(currentTrack)" color="light" clear ion-button icon-only><ion-icon name="play-outline"></ion-icon></button>
+              <button *ngIf="currentTrack.playing" (click)="pauseTrack(currentTrack)" color="light" clear ion-button icon-only><ion-icon name="pause-outline"></ion-icon></button>
+          </ion-col>
+
+          <ion-col width="33">
+              <button (click)="nextTrack()" color="light" clear ion-button icon-only><ion-icon name="skip-forward-outline"></ion-icon></button>
+          </ion-col>
+
+      </ion-row>
+
+  </ion-grid>
+
+</ion-footer> -->
